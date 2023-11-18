@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use serde::Serialize;
 
 
 fn main() {
@@ -17,11 +18,11 @@ fn main() {
             postcode: "HA34 7ER".to_string(),
         }
     };
-
-    println!("{:?}", customer);
+    let log = serde_json::to_string(&customer).unwrap();
+    println!("{}", log)
 }
 
-#[derive(Debug)]
+#[derive(Serialize)]
 struct Session {
     customer: String,
     cart: Vec<String>,
@@ -30,14 +31,14 @@ struct Session {
     shipping: Address,
 }
 
-#[derive(Debug)]
+#[derive(Serialize)]
 enum Account {
     Free,
     Premium,
     Corporate(String),
 }
 
-#[derive(Debug)]
+#[derive(Serialize)]
 struct Address {
     country: String,
     location: [String;3],
